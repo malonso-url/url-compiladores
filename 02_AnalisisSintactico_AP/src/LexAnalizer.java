@@ -29,7 +29,4 @@ public class LexAnalizer
         return tokens;
     }
 
-    public static void main(String[] args) {
-        
-    }
 }
