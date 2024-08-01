@@ -37,4 +37,13 @@ public class SintaxAnalizerTest {
 
         assertEquals(SintaxAnalizer.SUCCESS, parser.parse(tokens1));
     }
+
+    @Test
+    public void nonValidExpressionParseTest() throws Exception{
+        String expression1 = "( + 2)";
+        ArrayList<String> tokens1 = LexAnalizer.tokenize(expression1);
+        SintaxAnalizer parser = new SintaxAnalizer();
+
+        assertEquals(SintaxAnalizer.ERROR, parser.parse(tokens1));
+    }
 }

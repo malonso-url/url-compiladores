@@ -29,4 +29,30 @@ public class LexAnalizer
         return tokens;
     }
 
+
+    public static ArrayList<String> tokenizeVariables(String declaracion_variables){
+        ArrayList<String> tokens = new ArrayList<>();
+        String regex = "_[a-zA-Z0-9]+|#[01]+|#[0-7]+|#[0-9A-F]+|[boh]|:";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(declaracion_variables);
+        
+        while (matcher.find()) {
+            String token = matcher.group();
+            if (token.matches("_[a-zA-Z0-9]+")) {
+                tokens.add("ID");
+            } else if (token.matches("#[01]+")) {
+                tokens.add("VALUE_BIN");
+            } else if (token.matches("#[0-7]+")) {
+                tokens.add("VALUE_OCT");
+            } else if (token.matches("#[0-9A-F]+")) {
+                tokens.add("VALUE_HEX");
+            }
+            else {
+                tokens.add(token.trim());
+            }
+        }
+        
+        return tokens;
+    }
+
 }
