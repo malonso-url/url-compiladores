@@ -107,10 +107,10 @@ public class SyntaxAnalyzer {
   
             //top of stack is state
             if (parsingStack.peek().getType() == ParsingItem.STATE){
-                Operation toDo = parsingTable.get(Integer.parseInt(parsingStack.peek().getSymbol())).get(token.getSymbol());
+                Operation toDo = parsingTable.get(Integer.parseInt(parsingStack.peek().getSymbol().toString())).get(token.getSymbol());
                 if (toDo != null){
                     if (toDo.getType() == Operation.SHIFT){
-                        parsingStack.push( new ParsingItem(token.getSymbol(), ParsingItem.TERMINAL) );
+                        parsingStack.push( new ParsingItem(token, ParsingItem.TERMINAL) );
                         parsingStack.push( new ParsingItem("" + toDo.getState(), ParsingItem.STATE ) );
                     } else if (toDo.getType() == Operation.REDUCE){
                         Production prod = productions.get(toDo.getProduction());
@@ -123,12 +123,23 @@ public class SyntaxAnalyzer {
                                 parsingStack.pop(); //remove the state
                                 ParsingItem symbol = parsingStack.pop(); //removes the symbol
                                 
-                                if (symbol.getSymbol().equals(prod.getSymbols()[index])){
-                                    parsingStack.pop();
-                                    index--;
+                                if (symbol.getType() == ParsingItem.TERMINAL){ //Is a Lexema
+                                    if (((Lexema)symbol.getSymbol()).getSymbol().equals(prod.getSymbols()[index])){
+                                        parsingStack.pop();
+                                        index--;
+                                    } else {
+                                        return RESULT_FAILED;
+                                    }
                                 } else {
-                                    return RESULT_FAILED;
+                                    if (symbol.getSymbol().equals(prod.getSymbols()[index])){
+                                        parsingStack.pop();
+                                        index--;
+                                    } else {
+                                        return RESULT_FAILED;
+                                    }
                                 }
+
+                                
 
                             }
                         }
@@ -149,7 +160,7 @@ public class SyntaxAnalyzer {
                 //Need to find a GoTo
                 ParsingItem nonTerminal = parsingStack.pop();
                 ParsingItem lastState = parsingStack.pop();
-                Operation toDo = parsingTable.get(Integer.parseInt(lastState.getSymbol())).get(nonTerminal.getSymbol());
+                Operation toDo = parsingTable.get(Integer.parseInt(lastState.getSymbol().toString())).get(nonTerminal.getSymbol());
 
                 if (toDo != null){
                     if (toDo.getType() == Operation.GOTO){

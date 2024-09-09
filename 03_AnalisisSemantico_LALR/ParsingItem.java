@@ -4,18 +4,18 @@ public class ParsingItem {
     public static final int NONTERMINAL = 1;
     public static final int STATE = 2;
 
-    private String symbol;
+    private Object symbol;
     private int type;
 
-    public ParsingItem(String symbol, int type){
+    public ParsingItem(Object symbol, int type){
         setSymbol(symbol);
         setType(type);
     }
 
-    public String getSymbol() {
+    public Object getSymbol() {
         return symbol;
     }
-    public void setSymbol(String symbol) {
+    public void setSymbol(Object symbol) {
         this.symbol = symbol;
     }
     public int getType() {
