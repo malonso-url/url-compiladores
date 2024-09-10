@@ -19,9 +19,9 @@ public class SyntaxAnalyzer {
 
     private void createProductions(){
         productions = new HashMap<Integer, Production>();
-        productions.put(1, new Production("<var>", "int","id","=","num","n_var"));
+        productions.put(1, new Production("<var>", "int","id","=","num","<n_var>"));
         productions.get(1).setActions("save_int_in_st");
-        productions.put(2, new Production("<var>", "boolean","id","=","<b_opt>","n_var"));
+        productions.put(2, new Production("<var>", "boolean","id","=","<b_opt>","<n_var>"));
         productions.get(2).setActions("save_boolean_in_st");
         productions.put(3, new Production("<n_var>", ";","<var>"));
         productions.put(4, new Production("<n_var>", "ε"));
@@ -102,8 +102,10 @@ public class SyntaxAnalyzer {
         //Starting with the stack
         parsingStack.push(new ParsingItem("0", ParsingItem.STATE));
 
-        for (Lexema token : tokens){
-
+        //for (Lexema token : tokens){
+        for (int i = 0; i < tokens.size(); i++){
+        
+            Lexema token = tokens.get(i);
   
             //top of stack is state
             if (parsingStack.peek().getType() == ParsingItem.STATE){
@@ -115,6 +117,7 @@ public class SyntaxAnalyzer {
                     } else if (toDo.getType() == Operation.REDUCE){
                         Production prod = productions.get(toDo.getProduction());
                         int index = prod.getSymbols().length - 1;
+                        i--;
                         while (index >= 0) { //remove the symbols from the stack
 
                             if (prod.getSymbols()[index].equals("ε")){
@@ -125,14 +128,14 @@ public class SyntaxAnalyzer {
                                 
                                 if (symbol.getType() == ParsingItem.TERMINAL){ //Is a Lexema
                                     if (((Lexema)symbol.getSymbol()).getSymbol().equals(prod.getSymbols()[index])){
-                                        parsingStack.pop();
+                                        //parsingStack.pop();
                                         index--;
                                     } else {
                                         return RESULT_FAILED;
                                     }
                                 } else {
                                     if (symbol.getSymbol().equals(prod.getSymbols()[index])){
-                                        parsingStack.pop();
+                                        //parsingStack.pop();
                                         index--;
                                     } else {
                                         return RESULT_FAILED;
@@ -160,6 +163,7 @@ public class SyntaxAnalyzer {
                 //Need to find a GoTo
                 ParsingItem nonTerminal = parsingStack.pop();
                 ParsingItem lastState = parsingStack.pop();
+                i--;
                 Operation toDo = parsingTable.get(Integer.parseInt(lastState.getSymbol().toString())).get(nonTerminal.getSymbol());
 
                 if (toDo != null){
