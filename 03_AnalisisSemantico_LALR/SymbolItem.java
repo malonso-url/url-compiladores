@@ -12,13 +12,15 @@ public class SymbolItem {
     private int type;
     private int scope;
     private int memoryAddress;
+    private Object value;
 
-    public SymbolItem(String id, int function, int type, int scope, int memoryAddress){
+    public SymbolItem(String id, int function, int type, int scope, int memoryAddress, Object value){
         setId(id);
         setFunction(function);
         setType(type);
         setScope(scope);
         setMemoryAddress(memoryAddress);
+        setValue(value);
     }
 
     public String getId() {
@@ -52,5 +54,11 @@ public class SymbolItem {
         this.memoryAddress = memoryAddress;
     }
 
+    public Object getValue(){
+        return value;
+    }
+    public void setValue(Object value){
+        this.value = value;
+    }
     
 }
