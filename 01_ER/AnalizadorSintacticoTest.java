@@ -45,6 +45,24 @@ public class AnalizadorSintacticoTest {
     }
 
     @Test
+    public void tokenClassifyTest(){
+        int result = AnalizadorSintactico.classifyToken("int");
+        assertEquals(1, result);
+
+        result = AnalizadorSintactico.classifyToken("+");
+        assertEquals(2, result);
+
+        result = AnalizadorSintactico.classifyToken("variable");
+        assertEquals(3, result);
+
+        result = AnalizadorSintactico.classifyToken("123");
+        assertEquals(4, result);
+
+        result = AnalizadorSintactico.classifyToken("@other");
+        assertEquals(5, result);
+    }
+
+    @Test
     public void declaracionVariableTest(){
         int result = AnalizadorSintactico.declaracionVariableCheck("n i = 10;");
         assertEquals(3, result);
