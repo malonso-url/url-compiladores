@@ -14,7 +14,7 @@ public class LexerTest {
 
         ArrayList<TokenSymbol> tokens = analizadorLexico.getTokensFromSourceCode("()");
 
-        assertEquals(2, tokens.size());
+        assertEquals(3, tokens.size());
 
         assertEquals("TERMINAL", tokens.get(0).getType());
         assertEquals("(", tokens.get(0).getSymbol());

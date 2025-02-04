@@ -26,6 +26,8 @@ public class Lexer {
                 throw new Exception("Symbolo no reconocido: " + match);
             }
         }
+
+        tokens.add(new TokenSymbol("TERMINAL", "$", "$")); //Finalización de la cadena de entrada
         return tokens;
     }
 
