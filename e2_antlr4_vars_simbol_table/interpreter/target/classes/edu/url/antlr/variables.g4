@@ -13,7 +13,7 @@ vars: intvar
 intvar: '$int' ID '=' INT
 		;
 		
-boolvar: '$bool' ID '=' ('$true'|'$false')?
+boolvar: '$bool' ID '=' ('$true'|'$false')
 		;
 
 expressions: aexpr
@@ -22,14 +22,14 @@ expressions: aexpr
 		| ioexpr
 		;
 
-aexpr: term ( ('+'|'-')? term )* ; 
-term: factor ( ('*'|'/')? factor )* ; 
+aexpr: term ( ('+'|'-') term )* ; 
+term: factor ( ('*'|'/') factor )* ; 
 factor: '(' aexpr ')' 
 		| INT
 		| ID
       ;
 	  
-bexpr: ('$not')? bterm ( ('$and'|'$or')? ('$not')? bterm )* ; 
+bexpr: ('$not')? bterm ( ('$and'|'$or') ('$not')? bterm )* ; 
 bterm: '(' bterm ')' 
 		| '$true'
 		| '$false'
