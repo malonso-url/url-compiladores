@@ -1,6 +1,7 @@
 package edu.url.interpreter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.antlr.v4.runtime.*;
@@ -19,7 +20,8 @@ public class EnvironmentTest {
             "$vars:\r\n" + 
             "$int variable1 = 2\r\n" +
             "$int variable2 = 0\r\n" +
-            "$bool test = $true";
+            "$bool test = $true\r\n" + 
+            "$bool testBool2 = $false";
 
         // Crear lexer y parser
         variablesLexer lexer = new variablesLexer(CharStreams.fromString(input));
@@ -31,11 +33,11 @@ public class EnvironmentTest {
 
         // Usar el visitor
         Environment visitor = new Environment();
-        BasicProgram programa = visitor.visit(tree);
+        VariableSegment programa = visitor.visit(tree);
 
         assertEquals(2, programa.getIntVariables().size());
 
-        assertEquals(1, programa.getBoolVariables().size());
+        assertEquals(2, programa.getBoolVariables().size());
 
         int variable1Value = programa.getIntVariables().get("variable1").getValue();
         assertEquals(2, variable1Value);
@@ -45,5 +47,8 @@ public class EnvironmentTest {
 
         boolean variableTestValue = programa.getBoolVariables().get("test").getValue();
         assertTrue(variableTestValue);
+
+        boolean variableTest2 = programa.getBoolVariables().get("testBool2").getValue();
+        assertFalse(variableTest2);
     }
 }
