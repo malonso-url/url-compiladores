@@ -1,0 +1,10 @@
+$name Ejemplo
+$vars:
+$int variable1 = 2
+$int variable2 = 0
+$bool test = $true
+$bool testBool2 = $false
+$code:
+$write test
+$write variable1
+$end

@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
-
-import org.antlr.v4.runtime.CharStreams;
 import org.junit.Test;
 
 import edu.url.antlr.variablesLexer;
@@ -17,11 +17,16 @@ public class EnvironmentTest {
     @Test
     public void testVisitStart() {
         String input = ""+
+            "$name Ejemplo" +
             "$vars:\r\n" + 
             "$int variable1 = 2\r\n" +
             "$int variable2 = 0\r\n" +
             "$bool test = $true\r\n" + 
-            "$bool testBool2 = $false";
+            "$bool testBool2 = $false\r\n" +
+            "$code:" +
+            "$write test\r\n" + 
+            "$write variable1\r\n" +
+            "$end";
 
         // Crear lexer y parser
         variablesLexer lexer = new variablesLexer(CharStreams.fromString(input));
@@ -31,8 +36,10 @@ public class EnvironmentTest {
         // Obtener el árbol de sintaxis
         ParseTree tree = parser.start();
 
+        String codigoIntermedio = "";
+
         // Usar el visitor
-        Environment visitor = new Environment();
+        Environment visitor = new Environment(codigoIntermedio);
         VariableSegment programa = visitor.visit(tree);
 
         assertEquals(2, programa.getIntVariables().size());

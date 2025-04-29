@@ -2,6 +2,8 @@ package edu.url.interpreter;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
@@ -31,8 +33,9 @@ public class IOHandlerTest {
         // Obtener el árbol de sintaxis
         ParseTree tree = parser.start();
 
+        String codigoIntermedio = "";
         // Usar el visitor
-        Environment visitor = new Environment();
+        Environment visitor = new Environment(codigoIntermedio);
         VariableSegment programa = visitor.visit(tree);
 
 

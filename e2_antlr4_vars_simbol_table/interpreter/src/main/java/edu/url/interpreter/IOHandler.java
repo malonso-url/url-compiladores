@@ -34,9 +34,9 @@ public class IOHandler extends variablesBaseVisitor<String>{
 
     @Override
     public String visitStart(StartContext ctx) {
-        for (int i = 0; i < ctx.expressions().size(); i++){
+        /*for (int i = 0; i < ctx.expressions().size(); i++){
             visit(ctx.expressions(i));
-        }
+        }*/
         return "";
     }
     

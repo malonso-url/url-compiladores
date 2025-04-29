@@ -4,10 +4,20 @@ grammar variables;
     package edu.url.antlr;
 }
 
-start: '$vars:' vars* '$code:' expressions* EOF;
+start: header '$vars:' vars* code_declaration footer EOF;
+
+header: '$name' ID
+	;
+	
+footer: '$end'
+	;
 
 vars: intvar
 	| boolvar
+	;
+	
+code_declaration:
+	'$code:' expressions*
 	;
 
 intvar: '$int' ID '=' INT

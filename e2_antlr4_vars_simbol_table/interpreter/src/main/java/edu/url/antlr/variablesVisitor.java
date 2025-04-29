@@ -19,11 +19,29 @@ public interface variablesVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStart(variablesParser.StartContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link variablesParser#header}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHeader(variablesParser.HeaderContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link variablesParser#footer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFooter(variablesParser.FooterContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link variablesParser#vars}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitVars(variablesParser.VarsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link variablesParser#code_declaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCode_declaration(variablesParser.Code_declarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link variablesParser#intvar}.
 	 * @param ctx the parse tree

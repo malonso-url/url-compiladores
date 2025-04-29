@@ -31,6 +31,30 @@ public class variablesBaseListener implements variablesListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterHeader(variablesParser.HeaderContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHeader(variablesParser.HeaderContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFooter(variablesParser.FooterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFooter(variablesParser.FooterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterVars(variablesParser.VarsContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -38,6 +62,18 @@ public class variablesBaseListener implements variablesListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVars(variablesParser.VarsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCode_declaration(variablesParser.Code_declarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCode_declaration(variablesParser.Code_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

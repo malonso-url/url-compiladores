@@ -20,6 +20,26 @@ public interface variablesListener extends ParseTreeListener {
 	 */
 	void exitStart(variablesParser.StartContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link variablesParser#header}.
+	 * @param ctx the parse tree
+	 */
+	void enterHeader(variablesParser.HeaderContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link variablesParser#header}.
+	 * @param ctx the parse tree
+	 */
+	void exitHeader(variablesParser.HeaderContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link variablesParser#footer}.
+	 * @param ctx the parse tree
+	 */
+	void enterFooter(variablesParser.FooterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link variablesParser#footer}.
+	 * @param ctx the parse tree
+	 */
+	void exitFooter(variablesParser.FooterContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link variablesParser#vars}.
 	 * @param ctx the parse tree
 	 */
@@ -29,6 +49,16 @@ public interface variablesListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVars(variablesParser.VarsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link variablesParser#code_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterCode_declaration(variablesParser.Code_declarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link variablesParser#code_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitCode_declaration(variablesParser.Code_declarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link variablesParser#intvar}.
 	 * @param ctx the parse tree
