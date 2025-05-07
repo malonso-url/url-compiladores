@@ -15,7 +15,7 @@ public class App
     public static void main( String[] args )
     {
                 // Expresión a evaluar
-        String input = "10+20*3";
+        String input = "10+20+30";
 
         // Crear lexer y parser
         EjemploGood2Lexer lexer = new EjemploGood2Lexer(CharStreams.fromString(input));

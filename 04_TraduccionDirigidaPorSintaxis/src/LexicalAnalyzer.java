@@ -34,8 +34,8 @@ public class LexicalAnalyzer {
                 tokens.add(new Lexema(")", token));
             } else if (token.matches("\\+") ) {
                 tokens.add(new Lexema("+", token));
-            } else if (token.matches("\\-")) {
-                tokens.add(new Lexema("-", token));
+            } else if (token.matches("\\*")) {
+                tokens.add(new Lexema("*", token));
             } else if (token.matches("[0-9]+")) {
                 tokens.add(new Lexema("num", token));
             } 
