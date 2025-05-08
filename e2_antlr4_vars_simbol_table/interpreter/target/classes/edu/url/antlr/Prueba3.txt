@@ -1,0 +1,15 @@
+$name Ejemplo3
+$vars:
+$int cantidad_dolares = 20
+$int cantidad_quetzales = 0
+$int tasa_cambio = 8
+$bool resultado = $false
+$bool boolvar1 = $false
+$code:
+cantidad_quetzales = cantidad_dolares * tasa_cambio
+$write cantidad_quetzales
+resultado = ( cantidad_quetzales < 100 )
+$write resultado
+boolvar1 = $not $false $or resultado
+$write boolvar1
+$end

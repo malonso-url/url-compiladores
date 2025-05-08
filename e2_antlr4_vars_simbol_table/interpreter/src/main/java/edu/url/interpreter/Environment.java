@@ -8,7 +8,9 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import edu.url.antlr.variablesBaseVisitor;
 import edu.url.antlr.variablesParser.AexprContext;
 import edu.url.antlr.variablesParser.AssignexprContext;
+import edu.url.antlr.variablesParser.BexprContext;
 import edu.url.antlr.variablesParser.BoolvarContext;
+import edu.url.antlr.variablesParser.BtermContext;
 import edu.url.antlr.variablesParser.Code_declarationContext;
 import edu.url.antlr.variablesParser.ExpressionsContext;
 import edu.url.antlr.variablesParser.FactorContext;
@@ -227,6 +229,50 @@ public class Environment extends variablesBaseVisitor<VariableSegment> {
 
         return null;
     }
+
+    //En esta seccion se programa para las boolean expression
+
+    @Override
+    public VariableSegment visitBexpr(BexprContext ctx) {
+        for (int i = 0; i < ctx.children.size(); i++){
+            String simbolo = ctx.getChild(i).toString();
+
+            if (simbolo.equals("$not")){
+                programa += " !";
+            } else if (simbolo.equals("$and")){
+                programa += " && ";
+            } if (simbolo.equals("$or")){
+                programa += " || ";
+            } else {
+                visit(ctx.getChild(i));
+            }
+        }
+        return null;
+    }
+
+
+    @Override
+    public VariableSegment visitBterm(BtermContext ctx) {
+        
+        for (int i = 0; i < ctx.children.size(); i++){
+            String simbolo = ctx.getChild(i).toString();
+            
+            if (ctx.ID() != null){ //Es un id debo guardarlo
+                programa += " " + simbolo + " ";
+            } else if (simbolo.equals("$true")){ //Viene un true
+                programa += " true ";
+            } else if (simbolo.equals("$false")){ //Viene un true
+                programa += " false ";
+            } else if ("()=><=><=".contains(simbolo)){ //Es un simbolo
+                programa += " " + simbolo + " ";
+            } else {
+                visit(ctx.getChild(i));
+            }
+        }
+
+        return null;
+    }
+    
     
     
     
