@@ -12,6 +12,8 @@ import org.antlr.v4.runtime.tree.*;
 
 public class G4Parser {
     
+    public static String nombre_programa = "";
+
     public static String parse(String code){
         // Crear lexer y parser
         variablesLexer lexer = new variablesLexer(CharStreams.fromString(code));
@@ -22,9 +24,10 @@ public class G4Parser {
         ParseTree tree = parser.start();
 
         String codigoIntermedio = "";
+        
 
         // Usar el visitor
-        Environment visitor = new Environment(codigoIntermedio);
+        Environment visitor = new Environment(codigoIntermedio, nombre_programa);
         VariableSegment programa = visitor.visit(tree);
 
         return visitor.programa;

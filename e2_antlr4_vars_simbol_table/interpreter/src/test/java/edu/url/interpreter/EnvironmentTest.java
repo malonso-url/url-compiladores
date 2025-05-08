@@ -37,9 +37,10 @@ public class EnvironmentTest {
         ParseTree tree = parser.start();
 
         String codigoIntermedio = "";
+        String nombre = "";
 
         // Usar el visitor
-        Environment visitor = new Environment(codigoIntermedio);
+        Environment visitor = new Environment(codigoIntermedio, nombre);
         VariableSegment programa = visitor.visit(tree);
 
         assertEquals(2, programa.getIntVariables().size());

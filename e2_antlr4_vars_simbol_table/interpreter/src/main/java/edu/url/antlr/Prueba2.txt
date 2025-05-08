@@ -1,0 +1,9 @@
+$name Ejemplo2
+$vars:
+$int cantidad_dolares = 20
+$int cantidad_quetzales = 0
+$int tasa_cambio = 8
+$code:
+cantidad_quetzales = cantidad_dolares * tasa_cambio
+$write cantidad_quetzales
+$end

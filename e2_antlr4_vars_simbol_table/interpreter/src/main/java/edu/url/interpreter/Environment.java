@@ -24,9 +24,11 @@ public class Environment extends variablesBaseVisitor<VariableSegment> {
 
     private VariableSegment interpreterProgram;
     public String programa;
-    public Environment(String programa){
+    public String nombre_programa;
+    public Environment(String programa, String nombre_programa){
         interpreterProgram = new VariableSegment();
         this.programa = programa;
+        this.nombre_programa = nombre_programa;
     }
 
 
@@ -94,6 +96,7 @@ public class Environment extends variablesBaseVisitor<VariableSegment> {
     public VariableSegment visitHeader(HeaderContext ctx) {
         // Adding the name of the program
         programa += "public class " + ctx.getChild(1).toString() + "{\r\n";
+        nombre_programa = "" + ctx.getChild(1).toString();
         return super.visitHeader(ctx);
     }
 
