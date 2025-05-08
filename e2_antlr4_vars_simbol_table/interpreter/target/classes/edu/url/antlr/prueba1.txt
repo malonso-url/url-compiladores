@@ -2,9 +2,18 @@ $name Ejemplo
 $vars:
 $int variable1 = 2
 $int variable2 = 0
+$int resultado1 = 0
 $bool test = $true
 $bool testBool2 = $false
 $code:
+resultado1 = 2 + 5 * 20
+$write resultado1
+resultado1 = (2 + 5) * 20
+$write resultado1
+variable1 = variable2 + 20 * resultado1
+$write variable1
+variable1 = (variable2 + 20) * resultado1
+$write variable1
 $write test
 $write variable1
 $end
