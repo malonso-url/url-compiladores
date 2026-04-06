@@ -1,0 +1,4 @@
+STARTPROG
+var=15
+10+20*30+var
+ENDPROG
