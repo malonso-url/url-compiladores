@@ -5,16 +5,20 @@ prog: 'STARTPROG' NEWLINE (instructions)* 'ENDPROG'
 
 instructions: (expr NEWLINE) 
     | (assign NEWLINE)
+    | (conditional NEWLINE)
     ;
 
 assign: IDENTIFICADOR '=' INT
     ;
 
-expr:   expr ('*'|'/') expr
-    |   expr ('+'|'-') expr
-    |   INT
-    |   '(' expr ')'
-	|	IDENTIFICADOR
+expr:   expr ('*'|'/') expr    # MulDiv
+    |   expr ('+'|'-') expr    # AddSub
+    |   INT                    # IntLiteral
+    |   '(' expr ')'           # Parens
+    |   IDENTIFICADOR          # Id
+    ;
+
+conditional: 'IF' expr 'THEN' instructions 'ENDIF'
     ;
 	
 NEWLINE : [\r\n]+ ;

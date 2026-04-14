@@ -1,4 +1,4 @@
-// Generated from Expr.g4 by ANTLR 4.13.1
+// Generated from src/main/java/edu/url/compiladores/antlr/Expr.g4 by ANTLR 4.13.2
 package edu.url.compiladores.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -29,9 +29,44 @@ public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssign(ExprParser.AssignContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ExprParser#expr}.
+	 * Visit a parse tree produced by the {@code MulDiv}
+	 * labeled alternative in {@link ExprParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpr(ExprParser.ExprContext ctx);
+	T visitMulDiv(ExprParser.MulDivContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AddSub}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddSub(ExprParser.AddSubContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Parens}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParens(ExprParser.ParensContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntLiteral(ExprParser.IntLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Id}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId(ExprParser.IdContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#conditional}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConditional(ExprParser.ConditionalContext ctx);
 }

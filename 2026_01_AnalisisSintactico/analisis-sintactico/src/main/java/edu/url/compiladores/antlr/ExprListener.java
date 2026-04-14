@@ -1,4 +1,4 @@
-// Generated from Expr.g4 by ANTLR 4.13.1
+// Generated from src/main/java/edu/url/compiladores/antlr/Expr.g4 by ANTLR 4.13.2
 package edu.url.compiladores.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -38,13 +38,73 @@ public interface ExprListener extends ParseTreeListener {
 	 */
 	void exitAssign(ExprParser.AssignContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExprParser#expr}.
+	 * Enter a parse tree produced by the {@code MulDiv}
+	 * labeled alternative in {@link ExprParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpr(ExprParser.ExprContext ctx);
+	void enterMulDiv(ExprParser.MulDivContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ExprParser#expr}.
+	 * Exit a parse tree produced by the {@code MulDiv}
+	 * labeled alternative in {@link ExprParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpr(ExprParser.ExprContext ctx);
+	void exitMulDiv(ExprParser.MulDivContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AddSub}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterAddSub(ExprParser.AddSubContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AddSub}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitAddSub(ExprParser.AddSubContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Parens}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterParens(ExprParser.ParensContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Parens}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitParens(ExprParser.ParensContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntLiteral(ExprParser.IntLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntLiteral(ExprParser.IntLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Id}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterId(ExprParser.IdContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Id}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitId(ExprParser.IdContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ExprParser#conditional}.
+	 * @param ctx the parse tree
+	 */
+	void enterConditional(ExprParser.ConditionalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExprParser#conditional}.
+	 * @param ctx the parse tree
+	 */
+	void exitConditional(ExprParser.ConditionalContext ctx);
 }

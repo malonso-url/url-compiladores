@@ -1,6 +1,9 @@
 package edu.url.compiladores;
 
 import org.antlr.v4.runtime.CharStreams;
+
+import java.util.Scanner;
+
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -20,6 +23,7 @@ public class App
     public static void main( String[] args )
     {
         
+        Scanner in = new Scanner(System.in);
         // Entrada de prueba (DEBE cumplir la gramática)
         String input = "STARTPROG\r\nx=10\r\ny=20\r\nx+y*30\r\nENDPROG";
 
