@@ -3,9 +3,9 @@ grammar Expr;
 prog: 'STARTPROG' NEWLINE (instructions)* 'ENDPROG'
     ;
 
-instructions: (expr NEWLINE) 
-    | (assign NEWLINE)
-    | (conditional NEWLINE)
+instructions: (expr NEWLINE)         # InstrExpr
+    | (assign NEWLINE)               # InstrAssign
+    | (conditional NEWLINE)          # InstrConditional
     ;
 
 assign: IDENTIFICADOR '=' INT

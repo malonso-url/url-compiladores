@@ -163,31 +163,76 @@ public class ExprParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class InstructionsContext extends ParserRuleContext {
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
-		public TerminalNode NEWLINE() { return getToken(ExprParser.NEWLINE, 0); }
-		public AssignContext assign() {
-			return getRuleContext(AssignContext.class,0);
-		}
-		public ConditionalContext conditional() {
-			return getRuleContext(ConditionalContext.class,0);
-		}
 		public InstructionsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_instructions; }
+	 
+		public InstructionsContext() { }
+		public void copyFrom(InstructionsContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class InstrConditionalContext extends InstructionsContext {
+		public ConditionalContext conditional() {
+			return getRuleContext(ConditionalContext.class,0);
+		}
+		public TerminalNode NEWLINE() { return getToken(ExprParser.NEWLINE, 0); }
+		public InstrConditionalContext(InstructionsContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprListener ) ((ExprListener)listener).enterInstructions(this);
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).enterInstrConditional(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExprListener ) ((ExprListener)listener).exitInstructions(this);
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).exitInstrConditional(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExprVisitor ) return ((ExprVisitor<? extends T>)visitor).visitInstructions(this);
+			if ( visitor instanceof ExprVisitor ) return ((ExprVisitor<? extends T>)visitor).visitInstrConditional(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class InstrExprContext extends InstructionsContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode NEWLINE() { return getToken(ExprParser.NEWLINE, 0); }
+		public InstrExprContext(InstructionsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).enterInstrExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).exitInstrExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ExprVisitor ) return ((ExprVisitor<? extends T>)visitor).visitInstrExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class InstrAssignContext extends InstructionsContext {
+		public AssignContext assign() {
+			return getRuleContext(AssignContext.class,0);
+		}
+		public TerminalNode NEWLINE() { return getToken(ExprParser.NEWLINE, 0); }
+		public InstrAssignContext(InstructionsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).enterInstrAssign(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ExprListener ) ((ExprListener)listener).exitInstrAssign(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ExprVisitor ) return ((ExprVisitor<? extends T>)visitor).visitInstrAssign(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -200,6 +245,7 @@ public class ExprParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
+				_localctx = new InstrExprContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				{
@@ -211,6 +257,7 @@ public class ExprParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new InstrAssignContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				{
@@ -222,6 +269,7 @@ public class ExprParser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new InstrConditionalContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				{

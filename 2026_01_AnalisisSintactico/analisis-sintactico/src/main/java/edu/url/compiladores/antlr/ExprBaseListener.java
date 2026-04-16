@@ -29,13 +29,37 @@ public class ExprBaseListener implements ExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInstructions(ExprParser.InstructionsContext ctx) { }
+	@Override public void enterInstrExpr(ExprParser.InstrExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInstructions(ExprParser.InstructionsContext ctx) { }
+	@Override public void exitInstrExpr(ExprParser.InstrExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInstrAssign(ExprParser.InstrAssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInstrAssign(ExprParser.InstrAssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInstrConditional(ExprParser.InstrConditionalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInstrConditional(ExprParser.InstrConditionalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

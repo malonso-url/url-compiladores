@@ -18,15 +18,41 @@ public interface ExprListener extends ParseTreeListener {
 	 */
 	void exitProg(ExprParser.ProgContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExprParser#instructions}.
+	 * Enter a parse tree produced by the {@code InstrExpr}
+	 * labeled alternative in {@link ExprParser#instructions}.
 	 * @param ctx the parse tree
 	 */
-	void enterInstructions(ExprParser.InstructionsContext ctx);
+	void enterInstrExpr(ExprParser.InstrExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ExprParser#instructions}.
+	 * Exit a parse tree produced by the {@code InstrExpr}
+	 * labeled alternative in {@link ExprParser#instructions}.
 	 * @param ctx the parse tree
 	 */
-	void exitInstructions(ExprParser.InstructionsContext ctx);
+	void exitInstrExpr(ExprParser.InstrExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code InstrAssign}
+	 * labeled alternative in {@link ExprParser#instructions}.
+	 * @param ctx the parse tree
+	 */
+	void enterInstrAssign(ExprParser.InstrAssignContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InstrAssign}
+	 * labeled alternative in {@link ExprParser#instructions}.
+	 * @param ctx the parse tree
+	 */
+	void exitInstrAssign(ExprParser.InstrAssignContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code InstrConditional}
+	 * labeled alternative in {@link ExprParser#instructions}.
+	 * @param ctx the parse tree
+	 */
+	void enterInstrConditional(ExprParser.InstrConditionalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InstrConditional}
+	 * labeled alternative in {@link ExprParser#instructions}.
+	 * @param ctx the parse tree
+	 */
+	void exitInstrConditional(ExprParser.InstrConditionalContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ExprParser#assign}.
 	 * @param ctx the parse tree

@@ -1,53 +1,56 @@
 package edu.url.compiladores;
 
 import org.antlr.v4.runtime.CharStreams;
-
-import java.util.Scanner;
-
 import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import edu.url.compiladores.antlr.ExprLexer;
 import edu.url.compiladores.antlr.ExprParser;
-import edu.url.compiladores.antlr.ExprBaseVisitor;
 
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
- * Hello world!
- *
+ * Compilador - Análisis Sintáctico
+ * Translates the custom language to Java and prints the symbol table.
  */
-public class App 
+public class App
 {
-    public static void main( String[] args )
+    public static void main(String[] args) throws IOException
     {
-        
+        // Ask the user for the path to the input file
         Scanner in = new Scanner(System.in);
-        // Entrada de prueba (DEBE cumplir la gramática)
-        String input = "STARTPROG\r\nx=10\r\ny=20\r\nx+y*30\r\nENDPROG";
+        System.out.print("Ingrese la ruta del archivo de entrada: ");
+        String filePath = in.nextLine().trim();
+        in.close();
 
-        // Lexer
-        CharStream cs = CharStreams.fromString(input);
-        ExprLexer lexer = new ExprLexer(cs);
+        // Load the file as a CharStream
+        CharStream cs = CharStreams.fromFileName(filePath);
 
-        // Tokens
+        // Lexer → Tokens → Parser
+        ExprLexer lexer   = new ExprLexer(cs);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-
-        // Parser
         ExprParser parser = new ExprParser(tokens);
 
-        // Regla inicial
+        // Start rule
         ParseTree tree = parser.prog();
 
-        // Mostrar árbol como texto
-        System.out.println("Árbol sintáctico:");
-        System.out.println(tree.toStringTree(parser));
-
-        // Visitar el árbol
-        System.out.println("\nVisitando nodos:");
+        // ── Visit the tree ────────────────────────────────────────────────────
         EvalVisitor visitor = new EvalVisitor();
         visitor.visit(tree);
 
+        // ── Print translated Java code ────────────────────────────────────────
+        System.out.println("\n========== CÓDIGO JAVA GENERADO ==========");
+        System.out.println(visitor.getJavaCode());
+
+        // ── Print symbol table ────────────────────────────────────────────────
+        System.out.println("========== TABLA DE VARIABLES ==========");
+        System.out.printf("%-15s %-10s %-10s %-10s%n", "NOMBRE", "VALOR", "TIPO", "ÁMBITO");
+        System.out.println("-".repeat(47));
+        for (Variable v : visitor.getSymbolTable()) {
+            System.out.println(v);
+        }
+        System.out.println("=========================================");
     }
 }
