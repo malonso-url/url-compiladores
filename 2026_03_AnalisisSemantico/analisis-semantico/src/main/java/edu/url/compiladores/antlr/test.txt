@@ -1,0 +1,10 @@
+STARTPROG
+I>var=15
+I>variable=20
+I>resultado=10+20*30+var
+PRINT resultado
+B>boolvar=T
+S>nombre="Moises"
+B>bresult = T and ( F or boolvar)
+PRINT nombre
+ENDPROG
