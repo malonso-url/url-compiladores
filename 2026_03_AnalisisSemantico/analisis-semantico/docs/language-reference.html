@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Referencia del Lenguaje Compilador URL</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; color: #222; line-height: 1.7; }
+    header { background: #1a237e; color: #fff; padding: 2rem 3rem; }
+    header h1 { font-size: 2rem; }
+    header p  { opacity: .85; margin-top: .4rem; }
+    nav { background: #283593; padding: .6rem 3rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    nav a { color: #c5cae9; text-decoration: none; font-size: .9rem; }
+    nav a:hover { color: #fff; }
+    main { max-width: 960px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+    section { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.08);
+              padding: 2rem; margin-bottom: 2rem; }
+    h2 { color: #1a237e; border-bottom: 2px solid #e8eaf6; padding-bottom: .5rem; margin-bottom: 1.2rem; font-size: 1.4rem; }
+    h3 { color: #283593; margin: 1.2rem 0 .5rem; font-size: 1.1rem; }
+    p  { margin-bottom: .8rem; }
+    ul, ol { margin: .5rem 0 .8rem 1.5rem; }
+    li { margin-bottom: .3rem; }
+    code { background: #e8eaf6; color: #1a237e; padding: .1rem .4rem; border-radius: 4px; font-size: .92em; }
+    pre  { background: #1e1e2e; color: #cdd6f4; padding: 1.2rem 1.5rem; border-radius: 6px;
+           overflow-x: auto; font-size: .9rem; margin: .8rem 0 1rem; line-height: 1.6; }
+    pre .kw  { color: #89b4fa; font-weight: bold; }
+    pre .ty  { color: #a6e3a1; }
+    pre .str { color: #f9e2af; }
+    pre .num { color: #fab387; }
+    pre .cmt { color: #6c7086; font-style: italic; }
+    pre .op  { color: #f38ba8; }
+    .badge { display: inline-block; background: #e8eaf6; color: #1a237e; border-radius: 4px;
+             padding: .15rem .6rem; font-size: .8rem; font-weight: bold; margin-right: .3rem; }
+    .badge.int  { background: #e3f2fd; color: #0d47a1; }
+    .badge.str  { background: #f3e5f5; color: #6a1b9a; }
+    .badge.bool { background: #e8f5e9; color: #1b5e20; }
+    .badge.err  { background: #ffebee; color: #b71c1c; }
+    table { width: 100%; border-collapse: collapse; margin: .8rem 0; }
+    th { background: #e8eaf6; color: #1a237e; padding: .6rem 1rem; text-align: left; }
+    td { padding: .55rem 1rem; border-bottom: 1px solid #e8eaf6; }
+    tr:last-child td { border-bottom: none; }
+    footer { text-align: center; color: #888; font-size: .85rem; padding: 1.5rem; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Referencia del Lenguaje</h1>
+  <p>Compilador URL Análisis semántico ANTLR 4 + Java</p>
+</header>
+<nav>
+  <a href="#estructura">Estructura</a>
+  <a href="#variables">Variables</a>
+  <a href="#expresiones">Expresiones</a>
+  <a href="#print">PRINT</a>
+  <a href="#condicionales">Condicionales</a>
+  <a href="#semantica">SemÃ¡ntica</a>
+  <a href="#ejemplo">Ejemplo completo</a>
+  <a href="#java">CÃ³digo Java generado</a>
+</nav>
+<main>
+<section id="estructura">
+  <h2>1. Estructura del Programa</h2>
+  <p>Todo programa debe comenzar con la palabra clave <code>STARTPROG</code> y terminar con <code>ENDPROG</code>. Las instrucciones se escriben entre estas dos palabras, una por línea.</p>
+  <h3>Sintaxis</h3>
+  <pre><span class="kw">STARTPROG</span>
+  <span class="cmt">instrucciones...</span>
+<span class="kw">ENDPROG</span></pre>
+  <h3>Reglas</h3>
+  <ul>
+    <li>El programa <strong>debe</strong> iniciar con <code>STARTPROG</code> en la primera línea.</li>
+    <li>El programa <strong>debe</strong> terminar con <code>ENDPROG</code>.</li>
+    <li>Cada instrucción ocupa su propia línea.</li>
+    <li>Los espacios y tabulaciones entre tokens son ignorados.</li>
+  </ul>
+</section>
+<section id="variables">
+  <h2>2. Variables y Asignaciones</h2>
+  <p>El lenguaje soporta tres tipos de datos. Cada tipo tiene su propio prefijo de declaración.</p>
+  <table>
+    <tr><th>Prefijo</th><th>Tipo</th><th>Tipo Java generado</th><th>Ejemplo de valor</th></tr>
+    <tr><td><code>I&gt;</code></td><td><span class="badge int">int</span></td><td><code>int</code></td><td><code>42</code>, <code>10 + 5 * 2</code></td></tr>
+    <tr><td><code>S&gt;</code></td><td><span class="badge str">String</span></td><td><code>String</code></td><td><code>"Hola mundo"</code></td></tr>
+    <tr><td><code>B&gt;</code></td><td><span class="badge bool">boolean</span></td><td><code>boolean</code></td><td><code>T</code>, <code>F</code>, <code>T and F</code></td></tr>
+  </table>
+  <h3>Asignación entera — <code>I&gt;</code></h3>
+  <p>Declara una variable entera. El lado derecho puede ser cualquier expresión aritmética.</p>
+  <pre><span class="ty">I&gt;</span> <span class="kw">nombre</span> <span class="op">=</span> <span class="num">expresión_aritmética</span></pre>
+  <pre><span class="ty">I&gt;</span> x <span class="op">=</span> <span class="num">10</span>
+<span class="ty">I&gt;</span> y <span class="op">=</span> <span class="num">5</span>
+<span class="ty">I&gt;</span> resultado <span class="op">=</span> x <span class="op">+</span> y <span class="op">*</span> <span class="num">2</span></pre>
+  <h3>Asignación de cadena — <code>S&gt;</code></h3>
+  <p>Declara una variable de texto. El valor debe estar entre comillas dobles y puede contener letras, números, espacios y guiones bajos.</p>
+  <pre><span class="ty">S&gt;</span> <span class="kw">nombre</span> <span class="op">=</span> <span class="str">"texto"</span></pre>
+  <pre><span class="ty">S&gt;</span> saludo <span class="op">=</span> <span class="str">"Hola mundo"</span>
+<span class="ty">S&gt;</span> usuario <span class="op">=</span> <span class="str">"Juan_123"</span></pre>
+  <h3>Asignación booleana — <code>B&gt;</code></h3>
+  <p>Declara una variable booleana. El lado derecho puede ser cualquier expresión booleana.</p>
+  <pre><span class="ty">B&gt;</span> <span class="kw">nombre</span> <span class="op">=</span> <span class="num">expresión_booleana</span></pre>
+  <pre><span class="ty">B&gt;</span> activo <span class="op">=</span> T
+<span class="ty">B&gt;</span> inactivo <span class="op">=</span> F
+<span class="ty">B&gt;</span> resultado <span class="op">=</span> T <span class="kw">and</span> <span class="op">(</span>F <span class="kw">or</span> activo<span class="op">)</span></pre>
+</section><section id="expresiones">
+  <h2>3. Expresiones</h2>
+  <h3>Expresiones Aritméticas</h3>
+  <p>Se usan en asignaciones enteras (<code>I&gt;</code>) y en <code>PRINT</code>. Los operandos pueden ser literales enteros o variables de tipo <span class="badge int">int</span>.</p>
+  <table>
+    <tr><th>Operador</th><th>Descripción</th><th>Ejemplo</th></tr>
+    <tr><td><code>+</code></td><td>Suma</td><td><code>x + 5</code></td></tr>
+    <tr><td><code>-</code></td><td>Resta</td><td><code>x - 3</code></td></tr>
+    <tr><td><code>*</code></td><td>Multiplicación</td><td><code>x * 2</code></td></tr>
+    <tr><td><code>/</code></td><td>División</td><td><code>x / 4</code></td></tr>
+    <tr><td><code>( )</code></td><td>Agrupación</td><td><code>(x + 2) * 3</code></td></tr>
+  </table>
+  <p>La precedencia sigue las reglas matemáticas estándar: <code>*</code> y <code>/</code> antes que <code>+</code> y <code>-</code>.</p>
+  <pre><span class="ty">I&gt;</span> a <span class="op">=</span> <span class="num">10</span>
+<span class="ty">I&gt;</span> b <span class="op">=</span> <span class="num">3</span>
+<span class="ty">I&gt;</span> suma      <span class="op">=</span> a <span class="op">+</span> b
+<span class="ty">I&gt;</span> producto  <span class="op">=</span> a <span class="op">*</span> b
+<span class="ty">I&gt;</span> complejo  <span class="op">=</span> <span class="num">10</span> <span class="op">+</span> <span class="num">20</span> <span class="op">*</span> <span class="num">30</span> <span class="op">+</span> a</pre>
+  <h3>Expresiones Booleanas</h3>
+  <p>Se usan en asignaciones booleanas (<code>B&gt;</code>), en <code>PRINT</code> y en condiciones <code>IF</code>.</p>
+  <table>
+    <tr><th>Operador</th><th>Descripción</th><th>Java generado</th><th>Ejemplo</th></tr>
+    <tr><td><code>and</code></td><td>Conjunción lógica</td><td><code>&amp;&amp;</code></td><td><code>T and F</code></td></tr>
+    <tr><td><code>or</code></td><td>Disyunción lógica</td><td><code>||</code></td><td><code>T or activo</code></td></tr>
+    <tr><td><code>not</code></td><td>Negación lógica</td><td><code>!</code></td><td><code>not activo</code></td></tr>
+    <tr><td><code>T</code></td><td>Verdadero</td><td><code>true</code></td><td><code>T</code></td></tr>
+    <tr><td><code>F</code></td><td>Falso</td><td><code>false</code></td><td><code>F</code></td></tr>
+    <tr><td><code>( )</code></td><td>Agrupación</td><td><code>( )</code></td><td><code>(T or F)</code></td></tr>
+  </table>
+  <h3>Comparaciones</h3>
+  <p>Comparan dos expresiones aritméticas y producen un valor booleano. Se usan dentro de expresiones booleanas.</p>
+  <table>
+    <tr><th>Operador</th><th>Significado</th></tr>
+    <tr><td><code>==</code></td><td>Igual a</td></tr>
+    <tr><td><code>!=</code></td><td>Diferente de</td></tr>
+    <tr><td><code>&lt;</code></td><td>Menor que</td></tr>
+    <tr><td><code>&lt;=</code></td><td>Menor o igual que</td></tr>
+    <tr><td><code>&gt;</code></td><td>Mayor que</td></tr>
+    <tr><td><code>&gt;=</code></td><td>Mayor o igual que</td></tr>
+  </table>
+  <pre><span class="ty">I&gt;</span> x <span class="op">=</span> <span class="num">10</span>
+<span class="ty">B&gt;</span> esMayor <span class="op">=</span> x <span class="op">&gt;</span> <span class="num">5</span>
+<span class="ty">B&gt;</span> esIgual <span class="op">=</span> x <span class="op">==</span> <span class="num">10</span></pre>
+</section><section id="print">
+  <h2>4. Instruccion PRINT</h2>
+  <p>Imprime un valor en la salida estandar. Acepta tres formas:</p>
+  <table>
+    <tr><th>Forma</th><th>Descripcion</th><th>Java generado</th></tr>
+    <tr><td><code>PRINT expr</code></td><td>Imprime una expresion aritmetica o variable entera</td><td><code>System.out.println(expr);</code></td></tr>
+    <tr><td><code>PRINT boolExpr</code></td><td>Imprime una expresion booleana</td><td><code>System.out.println(boolExpr);</code></td></tr>
+    <tr><td><code>PRINT "texto"</code></td><td>Imprime una cadena literal</td><td><code>System.out.println("texto");</code></td></tr>
+  </table>
+  <pre><span class="ty">I&gt;</span> x <span class="op">=</span> <span class="num">10</span>
+<span class="ty">S&gt;</span> msg <span class="op">=</span> <span class="str">"Hola"</span>
+<span class="ty">B&gt;</span> flag <span class="op">=</span> T
+<span class="kw">PRINT</span> x <span class="op">+</span> <span class="num">5</span>
+<span class="kw">PRINT</span> flag <span class="kw">and</span> T
+<span class="kw">PRINT</span> <span class="str">"Resultado:"</span></pre>
+</section>
+<section id="condicionales">
+  <h2>5. Condicionales</h2>
+  <p>Ejecuta un bloque de instrucciones si la condicion booleana es verdadera.</p>
+  <pre><span class="kw">IF</span> expresion_booleana <span class="kw">THEN</span>
+  instrucciones
+<span class="kw">ENDIF</span></pre>
+  <ul>
+    <li>La condicion puede ser cualquier expresion booleana valida.</li>
+    <li>El bloque puede contener asignaciones, PRINT u otros condicionales.</li>
+    <li>No existe <code>ELSE</code> en esta version del lenguaje.</li>
+  </ul>
+  <pre><span class="ty">I&gt;</span> edad <span class="op">=</span> <span class="num">18</span>
+<span class="kw">IF</span> edad <span class="op">&gt;=</span> <span class="num">18</span> <span class="kw">THEN</span>
+  <span class="kw">PRINT</span> <span class="str">"Mayor de edad"</span>
+<span class="kw">ENDIF</span>
+<span class="ty">B&gt;</span> activo <span class="op">=</span> T
+<span class="kw">IF</span> activo <span class="kw">and</span> <span class="op">(</span>edad <span class="op">&gt;</span> <span class="num">10</span><span class="op">)</span> <span class="kw">THEN</span>
+  <span class="kw">PRINT</span> <span class="str">"Activo y mayor de 10"</span>
+<span class="kw">ENDIF</span></pre>
+</section>
+<section id="semantica">
+  <h2>6. Validacion Semantica de Tipos</h2>
+  <p>El compilador realiza analisis semantico durante la visita del arbol de parseo. Se verifican las siguientes reglas:</p>
+  <h3>Reglas de tipo</h3>
+  <ul>
+    <li>Una variable usada en una <strong>expresion aritmetica</strong> (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>) debe ser de tipo <span class="badge int">int</span>.</li>
+    <li>Una variable usada directamente en una <strong>expresion booleana</strong> (sin comparacion) debe ser de tipo <span class="badge bool">boolean</span>.</li>
+    <li>Toda variable debe estar <strong>declarada antes de usarse</strong>.</li>
+  </ul>
+  <h3>Errores detectados</h3>
+  <table>
+    <tr><th>Situacion</th><th>Error generado</th></tr>
+    <tr><td>Variable no declarada usada en expresion</td><td><span class="badge err">ERROR SEMANTICO: Variable 'x' no declarada</span></td></tr>
+    <tr><td>Variable boolean usada en aritmetica</td><td><span class="badge err">ERROR SEMANTICO: Variable 'flag' es de tipo 'boolean' pero se esperaba 'int'</span></td></tr>
+    <tr><td>Variable int usada en expresion booleana</td><td><span class="badge err">ERROR SEMANTICO: Variable 'x' es de tipo 'int' pero se esperaba 'boolean'</span></td></tr>
+  </table>
+  <h3>Ejemplo de error</h3>
+  <pre><span class="ty">B&gt;</span> flag <span class="op">=</span> T
+<span class="ty">I&gt;</span> resultado <span class="op">=</span> flag <span class="op">+</span> <span class="num">5</span>  <span class="cmt">ERROR: flag es boolean, no int</span></pre>
+  <pre><span class="ty">I&gt;</span> x <span class="op">=</span> <span class="num">10</span>
+<span class="kw">IF</span> x <span class="kw">THEN</span>  <span class="cmt">ERROR: x es int, no boolean</span>
+  <span class="kw">PRINT</span> <span class="str">"ok"</span>
+<span class="kw">ENDIF</span></pre>
+</section>
+<section id="ejemplo">
+  <h2>7. Ejemplo Completo</h2>
+  <p>El siguiente programa declara variables de los tres tipos, realiza calculos, imprime resultados y usa un condicional.</p>
+  <pre><span class="kw">STARTPROG</span>
+<span class="ty">I&gt;</span> var <span class="op">=</span> <span class="num">15</span>
+<span class="ty">I&gt;</span> variable <span class="op">=</span> <span class="num">20</span>
+<span class="ty">I&gt;</span> resultado <span class="op">=</span> <span class="num">10</span> <span class="op">+</span> <span class="num">20</span> <span class="op">*</span> <span class="num">30</span> <span class="op">+</span> var
+<span class="kw">PRINT</span> resultado
+<span class="ty">B&gt;</span> boolvar <span class="op">=</span> T
+<span class="ty">S&gt;</span> nombre <span class="op">=</span> <span class="str">"Moises"</span>
+<span class="ty">B&gt;</span> bresult <span class="op">=</span> T <span class="kw">and</span> <span class="op">(</span>F <span class="kw">or</span> boolvar<span class="op">)</span>
+<span class="kw">PRINT</span> nombre
+<span class="kw">IF</span> bresult <span class="kw">THEN</span>
+  <span class="kw">PRINT</span> <span class="str">"Condicion verdadera"</span>
+<span class="kw">ENDIF</span>
+<span class="kw">ENDPROG</span></pre>
+</section>
+<section id="java">
+  <h2>8. Codigo Java Generado</h2>
+  <p>El compilador traduce el programa anterior al siguiente codigo Java valido:</p>
+  <pre><span class="kw">public class</span> Traduccion {
+    <span class="kw">public static void</span> main(String[] args) {
+        <span class="ty">int</span> var <span class="op">=</span> <span class="num">15</span>;
+        <span class="ty">int</span> variable <span class="op">=</span> <span class="num">20</span>;
+        <span class="ty">int</span> resultado <span class="op">=</span> <span class="num">10</span> <span class="op">+</span> <span class="num">20</span> <span class="op">*</span> <span class="num">30</span> <span class="op">+</span> var;
+        System.out.println(resultado);
+        <span class="ty">boolean</span> boolvar <span class="op">=</span> <span class="kw">true</span>;
+        <span class="ty">String</span> nombre <span class="op">=</span> <span class="str">"Moises"</span>;
+        <span class="ty">boolean</span> bresult <span class="op">=</span> <span class="kw">true</span> <span class="op">&amp;&amp;</span> (<span class="kw">false</span> <span class="op">||</span> boolvar);
+        System.out.println(nombre);
+        <span class="kw">if</span> (bresult) {
+            System.out.println(<span class="str">"Condicion verdadera"</span>);
+        }
+    }
+}</pre>
+  <h3>Tabla de Variables (Tabla de Simbolos)</h3>
+  <table>
+    <tr><th>NOMBRE</th><th>VALOR</th><th>TIPO</th><th>AMBITO</th></tr>
+    <tr><td>var</td><td>15</td><td>int</td><td>global</td></tr>
+    <tr><td>variable</td><td>20</td><td>int</td><td>global</td></tr>
+    <tr><td>resultado</td><td>10 + 20 * 30 + var</td><td>int</td><td>global</td></tr>
+    <tr><td>boolvar</td><td>T</td><td>boolean</td><td>global</td></tr>
+    <tr><td>nombre</td><td>Moises</td><td>String</td><td>global</td></tr>
+    <tr><td>bresult</td><td>true &amp;&amp; (false || boolvar)</td><td>boolean</td><td>global</td></tr>
+  </table>
+</section>
+</main>
+<footer>Compilador URL &copy; 2026 â€” AnÃ¡lisis SemÃ¡ntico</footer>
+</body>
+</html>
+
+
+
